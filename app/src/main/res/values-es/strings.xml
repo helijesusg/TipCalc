@@ -14,7 +14,7 @@
     <string name="button.delete">Borrar Recientes</string>
     <string name="button.accept">Aceptar</string>
 
-    <string name="hint.total">Total</string>
+    <string name="hint.total">Total de consumo</string>
     <string name="hint.percentage">% de Propina</string>
 
     <string name="notice.delete">Los Registros recientes han sido borrados</string>
@@ -33,6 +33,8 @@
     <string name="message.about2">En el cual se evalua el servicio, la atención y la calidad de la Comida.</string>
 
     <string name="message.notempty">no puede ser vacio&#8230;</string>
+
+    <string name="message.exit">Salida exitosa de la App.</string>
 
     <string name="message.tip">Propina %,.2f</string>
     <string name="message.total">Total %,.2f</string>

@@ -13,7 +13,7 @@
     <string name="button.delete">Delete Recent</string>
     <string name="button.accept">Accept</string>
 
-    <string name="hint.total">Total</string>
+    <string name="hint.total">Total Bill</string>
     <string name="hint.percentage">% of Tip</string>
 
     <string name="notice.delete">Recent items are deleted</string>
@@ -32,6 +32,8 @@
     <string name="message.about2">In which the service, attention and quality of food are valued.</string>
 
     <string name="message.notempty">can not be empty&#8230;</string>
+
+    <string name="message.exit">Successful exit of the App.</string>
 
     <string name="message.tip">Tip %,.2f</string>
     <string name="message.total">Total %,.2f</string>

@@ -38,17 +38,28 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.btnDecrease)     Button      btnDecrease;
     @Bind(R.id.txtTip)          TextView    txtTip;
 
+    private boolean exit = false;
     Toast toastMessage;
 
     private TipHistoryListFragmentListener fragmentListener;
 
     private final static int TIP_STEP_CHANGE = 1;           //Salto de Incremento/Decreto
 
+    @SuppressWarnings({"deprecation", "RedundantCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main); //Se establece el vínculo entre el .xml y el código java
         ButterKnife.bind(this);
+
+        final int version = android.os.Build.VERSION.SDK_INT;
+
+        if( version < 21 ){    //Lo utilizamos para configurar en tiempo de ejecución los botones de la APP
+            btnSubmit.setTextColor( getResources().getColor(R.color.colorPrimaryText ) );
+            btnIncrease.setTextColor( getResources().getColor(R.color.colorPrimaryText) );
+            btnDecrease.setTextColor( getResources().getColor(R.color.colorPrimaryText) );
+            btnDelete.setTextColor( getResources().getColor(R.color.colorPrimaryText) );
+        }
 
         TipHistoryListFragment fragment = (TipHistoryListFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentList);
 
@@ -98,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             float   TotalConsumption = Float.parseFloat( strInputTotal );   //Se captura el valor introducido por el usuario
             int     tipPercentage = getTipPercentage();                     //Se determina y se asigna el valor de la propina
 
-            float   tip = TotalConsumption*(tipPercentage/100f);            //Se calcula el valor dela propina a calcelar
+            //float   tip = TotalConsumption*(tipPercentage/100f);            //Se calcula el valor de la propina a calcelar
 
             TipRecord tipRecord = new TipRecord();
 
@@ -133,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentListener.clearList();
     }
 
+    @SuppressWarnings("ConstantConditions")
     private void hideKeyboard() {
         InputMethodManager inputManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 
@@ -185,21 +197,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void about() {
         String version = getResources().getString(R.string.version) + ": " + BuildConfig.VERSION_NAME;
+        AlertDialog.Builder alertDialogMsg = new AlertDialog.Builder(this);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle( getResources().getString(R.string.information) + "!!" )
-                .setMessage( getResources().getString(R.string.message_about1) + "\n" +
-                             getResources().getString(R.string.message_about2) + "\n" + "\n" +
-                             version )
-                //.setCancelable(false)
-                .setNeutralButton( getResources().getString(R.string.button_accept),    //setPositiveButton
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-        AlertDialog alert = builder.create();
-        alert.show();
+        alertDialogMsg.setIcon( getResources().getDrawable(R.drawable.ic_information) )
+                      .setTitle( getResources().getString(R.string.information) + "!!!" )
+                      .setMessage( getResources().getString(R.string.message_about1 ) + "\n" +
+                                   getResources().getString(R.string.message_about2) + "\n" + "\n" +
+                                   version )
+                      .setNeutralButton(getResources().getString(R.string.button_accept),    //setPositiveButton
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.cancel();
+                                            }
+                                        });
+        AlertDialog alertDialog = alertDialogMsg.create();
+        alertDialog.show();
     }
 
     @Override
@@ -207,9 +219,18 @@ public class MainActivity extends AppCompatActivity {
     {
         if( keyCode == KeyEvent.KEYCODE_BACK )
         {
+            exit = true;
             finish();   //Finaliza la APP y libera las variables.
             //onDestroy();
         }
         return true;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if( exit )
+            Toast.makeText( getApplicationContext(), getResources().getString(R.string.message_exit),
+                            Toast.LENGTH_SHORT).show();
     }
 }

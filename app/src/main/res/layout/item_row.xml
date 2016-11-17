@@ -8,8 +8,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:textAppearanceMedium"
-        android:gravity="center"
+        android:gravity="right"
         android:padding="@dimen/activity_padding"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:text="Large Text"
         android:id="@+id/txtContent" />
 </LinearLayout>

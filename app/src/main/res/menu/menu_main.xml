@@ -5,8 +5,10 @@
     tools:context=".MainActivity">
     <item android:id="@+id/action_about"
         android:title="@string/menu.action.about"
+        android:icon="@drawable/ic_tip"
         app:showAsAction="never" />
     <item android:id="@+id/action_createby"
         android:title="@string/menu.action.createby"
+        android:icon="@drawable/ic_tip"
         app:showAsAction="never" />
 </menu>
