@@ -8,23 +8,57 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.gonztorr.android.tipcalc.MainActivity">
+    tools:context="com.gonztorr.android.tipcalc.MainActivity"
+    android:background="@color/colorLightPrimary">
+
+    <ScrollView
+        android:id="@+id/layoutContentFragments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <fragment
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragmentRatingService"
+                android:name="com.gonztorr.android.tipcalc.fragments.RatingServiceFragment"
+                tools:layout="@layout/fragment_rating_service" />
+
+            <fragment
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragmentRatingFood"
+                android:name="com.gonztorr.android.tipcalc.fragments.RatingFoodFragment"
+                tools:layout="@layout/fragment_rating_food"
+                android:layout_marginTop="@dimen/activity_vertical_margin" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <include
+        android:id="@+id/tipContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tipContent"
-        layout="@layout/content_tip"/>
+        layout="@layout/content_tip"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/layoutContentFragments"
+        android:layout_toEndOf="@+id/layoutContentFragments"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin" />
 
     <fragment
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/fragmentList"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@id/tipContent"
-        android:layout_toEndOf="@id/tipContent"
         android:name="com.gonztorr.android.tipcalc.fragments.TipHistoryListFragment"
-        tools:layout="@layout/fragment_tip_history_list" />
+        tools:layout="@layout/fragment_tip_history_list"
+        android:layout_below="@+id/tipContent"
+        android:layout_alignLeft="@+id/tipContent"
+        android:layout_alignStart="@+id/tipContent" />
 
 </RelativeLayout>

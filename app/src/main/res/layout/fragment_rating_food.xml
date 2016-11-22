@@ -1,0 +1,62 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.gonztorr.android.tipcalc.fragments.RatingFoodFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title.options.food"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:background="@color/colorLightPrimary"
+            android:textColor="@color/colorPrimaryText" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorLightPrimary" >
+
+            <RadioButton
+                android:id="@+id/radioButtonCh"
+                android:text="@string/option.ch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryText" />
+
+            <RadioButton
+                android:id="@+id/radioButtonCm"
+                android:text="@string/option.cm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryText" />
+
+            <RadioButton
+                android:id="@+id/radioButtonCr"
+                android:text="@string/option.cr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryText" />
+
+            <RadioButton
+                android:id="@+id/radioButtonCb"
+                android:text="@string/option.cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryText" />
+
+            <RadioButton
+                android:id="@+id/radioButtonCd"
+                android:text="@string/option.cd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryText" />
+        </RadioGroup>
+
+    </LinearLayout>
+</FrameLayout>

@@ -15,9 +15,14 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gonztorr.android.tipcalc.fragments.RatingFoodFragment;
+import com.gonztorr.android.tipcalc.fragments.RatingFoodFragmentListener;
+import com.gonztorr.android.tipcalc.fragments.RatingServiceFragment;
+import com.gonztorr.android.tipcalc.fragments.RatingServiceFragmentListener;
 import com.gonztorr.android.tipcalc.fragments.TipHistoryListFragment;
 import com.gonztorr.android.tipcalc.fragments.TipHistoryListFragmentListener;
 import com.gonztorr.android.tipcalc.models.TipRecord;
@@ -33,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.inputTotal)      EditText    inputTotal;
     @Bind(R.id.inputPercentage) EditText    inputPercentage;
     @Bind(R.id.btnSubmit)       Button      btnSubmit;
-    @Bind(R.id.btnDelete)       Button      btnDelete;
+    //@Bind(R.id.btnDelete)       Button      btnDelete;
     @Bind(R.id.btnIncrease)     Button      btnIncrease;
     @Bind(R.id.btnDecrease)     Button      btnDecrease;
     @Bind(R.id.txtTip)          TextView    txtTip;
@@ -41,7 +46,12 @@ public class MainActivity extends AppCompatActivity {
     private boolean exit = false;
     Toast toastMessage;
 
-    private TipHistoryListFragmentListener fragmentListener;
+    private RatingServiceFragmentListener   ServicefragmentListener;
+    private RatingFoodFragmentListener      FoodfragmentListener;
+    private TipHistoryListFragmentListener  fragmentListener;
+
+    private String currentRatingService = "init";
+    private String currentRatingFood    = "init";
 
     private final static int TIP_STEP_CHANGE = 1;           //Salto de Incremento/Decreto
 
@@ -58,13 +68,21 @@ public class MainActivity extends AppCompatActivity {
             btnSubmit.setTextColor( getResources().getColor(R.color.colorPrimaryText ) );
             btnIncrease.setTextColor( getResources().getColor(R.color.colorPrimaryText) );
             btnDecrease.setTextColor( getResources().getColor(R.color.colorPrimaryText) );
-            btnDelete.setTextColor( getResources().getColor(R.color.colorPrimaryText) );
+            //btnDelete.setTextColor( getResources().getColor(R.color.colorPrimaryText) );
         }
 
-        TipHistoryListFragment fragment = (TipHistoryListFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentList);
+        TipHistoryListFragment  fragmentList    = (TipHistoryListFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentList);
+        RatingFoodFragment      fragmentFood    = (RatingFoodFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentRatingFood);
+        RatingServiceFragment   fragmentService = (RatingServiceFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentRatingService);
 
-        fragment.setRetainInstance(true);   //Permite mantener los valores así cambie de configuración del dispositivo
-        fragmentListener = (TipHistoryListFragmentListener)fragment;
+        fragmentList.setRetainInstance(true);   //Permite mantener los valores así cambie de configuración del dispositivo
+        fragmentListener = (TipHistoryListFragmentListener)fragmentList;
+
+        fragmentFood.setRetainInstance(true);   //Permite mantener los valores así cambie de configuración del dispositivo
+        FoodfragmentListener = (RatingFoodFragmentListener) fragmentFood;
+
+        fragmentService.setRetainInstance(true);   //Permite mantener los valores así cambie de configuración del dispositivo
+        ServicefragmentListener = (RatingServiceFragmentListener) fragmentService;
 
         inputTotal = (EditText) findViewById(R.id.inputTotal);
     }
@@ -139,10 +157,10 @@ public class MainActivity extends AppCompatActivity {
         handleTipChange( -TIP_STEP_CHANGE );     //Se pasa negativo el salto de cambio en caso de decremento
     }
 
-    @OnClick(R.id.btnDelete)
+    /*@OnClick(R.id.btnDelete)
     public void handleClickDelete(){
         fragmentListener.clearList();
-    }
+    }*/
 
     @SuppressWarnings("ConstantConditions")
     private void hideKeyboard() {
@@ -157,10 +175,25 @@ public class MainActivity extends AppCompatActivity {
 
     private int getTipPercentage(){
         clsAssess iclsAssess = new clsAssess(); //Clase de Lógica Difusa para calculo de propina
-        iclsAssess.setStrValorServicio("Sb");   //Se establece la valoración del Servicio
-        iclsAssess.setStrValorComida("Cb");     //Se valora la Calidad de la Comida
+        int tipPercentage;
 
-        int tipPercentage = (int) iclsAssess.obtenerPropina();  //La clase propone el porcentaje de la Propina
+        String strRatingService   = ServicefragmentListener.getRatingService();
+        String strRatingFood      = FoodfragmentListener.getRatingFood();
+
+        if( strRatingService.equals("init") || strRatingFood.equals("init") ){
+            strRatingService = "Smm";
+            strRatingFood    = "Ch";
+        }
+
+        if( !currentRatingService.equals( strRatingService ) ){
+            currentRatingService = strRatingService;
+            inputPercentage.setText("");
+        }
+
+        if( !currentRatingFood.equals( strRatingFood ) ){
+            currentRatingFood = strRatingFood;
+            inputPercentage.setText("");
+        }
 
         //int tipPercentage = DEAULT_TIP_PERCENTAGE;
         String strTipPercentage = inputPercentage.getText().toString().trim();
@@ -169,6 +202,11 @@ public class MainActivity extends AppCompatActivity {
             tipPercentage = Integer.parseInt(strTipPercentage);
         }
         else{
+            iclsAssess.setStrValorServicio(strRatingService);   //Se establece la valoración del Servicio
+            iclsAssess.setStrValorComida(strRatingFood);        //Se valora la Calidad de la Comida
+
+            tipPercentage = (int) iclsAssess.obtenerPropina();  //La clase propone el porcentaje de la Propina
+
             inputPercentage.setText( String.valueOf(tipPercentage) );
         }
 

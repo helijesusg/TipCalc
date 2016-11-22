@@ -7,7 +7,7 @@
     <string name="label">The Label</string>
 
 
-    <string name="button.submit">Calc Tip</string>
+    <string name="button.submit">Tip Calc</string>
     <string name="button.increase">+</string>
     <string name="button.decrease">-</string>
     <string name="button.delete">Delete Recent</string>
@@ -37,4 +37,22 @@
 
     <string name="message.tip">Tip %,.2f</string>
     <string name="message.total">Total %,.2f</string>
+
+    <string name="title.options.service">Rating Service</string>
+    <string name="title.options.food">Rating Food</string>
+
+    <string name="option.smm">Very Bad</string>
+    <string name="option.sm">Bad</string>
+    <string name="option.sr">Regular</string>
+    <string name="option.sb">Good</string>
+    <string name="option.smb">Very Good</string>
+
+    <string name="option.ch">Horrible</string>
+    <string name="option.cm">Bad</string>
+    <string name="option.cr">Regular</string>
+    <string name="option.cb">Good</string>
+    <string name="option.cd">Delicious</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

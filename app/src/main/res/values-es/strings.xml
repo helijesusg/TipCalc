@@ -38,4 +38,19 @@
 
     <string name="message.tip">Propina %,.2f</string>
     <string name="message.total">Total %,.2f</string>
+
+    <string name="title.options.service">Valoración de Servicio</string>
+    <string name="title.options.food">Valoración de Comida</string>
+
+    <string name="option.smm">Muy Malo</string>
+    <string name="option.sm">Malo</string>
+    <string name="option.sr">Regular</string>
+    <string name="option.sb">Bueno</string>
+    <string name="option.smb">Muy Bueno</string>
+
+    <string name="option.ch">Horrible</string>
+    <string name="option.cm">Mala</string>
+    <string name="option.cr">Regular</string>
+    <string name="option.cb">Buena</string>
+    <string name="option.cd">Deliciosa</string>
 </resources>

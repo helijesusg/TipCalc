@@ -8,7 +8,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0.1"
+        versionName "1.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -18,6 +18,8 @@ android {
         }
     }
 }
+
+
 
 
 dependencies {
@@ -32,6 +34,7 @@ dependencies {
     compile "com.android.support:support-v13:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:support-v4:$rootProject.ext.supportLibraryVersion"
     compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
+    compile files('libs/propina_difusa.jar')
+    compile 'com.android.support:support-v4:24.2.1'
     testCompile 'junit:junit:4.12'
-    compile files( 'libs/propina_difusa.jar' )
 }
